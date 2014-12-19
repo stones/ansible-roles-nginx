@@ -18,13 +18,9 @@
   notify:
   - Reload Nginx
 
-- name: Disable Previous Config
-  file: dest=/etc/nginx/sites-enabled/tomstones.com.au state=absent
-  notify:
-  - Reload Nginx
 
 - name: Add Site Config
-  template: src=server.j2 dest=/etc/nginx/sites-available/site owner=root group=root
+  template: src=site.j2 dest=/etc/nginx/sites-available/site owner=root group=root
 
 - name: Enable Site Config
   file: src=/etc/nginx/sites-available/site dest=/etc/nginx/sites-enabled/site state=link
