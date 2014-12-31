@@ -5,7 +5,7 @@
   register: ppainstalled
 
 - name: Intall Ngnix
-  apt: pkg=nginx state=latest update_cache=true
+  apt: pkg=nginx state=latest
   when: ppainstalled|success
   notify:
   - Start Nginx
