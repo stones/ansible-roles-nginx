@@ -5,30 +5,18 @@
   register: ppainstalled
 
 - name: Intall Ngnix
-<<<<<<< HEAD
-  apt: pkg=nginx state=latest update_cache=true
-=======
   apt: pkg=nginx state=latest
->>>>>>> master
   when: ppainstalled|success
   notify:
   - Start Nginx
 
-- name: Add h5bp Config
+- name: Add h5bp Config Files
   copy: src=h5bp dest=/etc/nginx/ owner=root group=root
 
 - name: Disable Default Config
   file: dest=/etc/nginx/sites-enabled/default state=absent
+
+- name: Updated Nginx.conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root
   notify:
   - Reload Nginx
-
-
-- name: Add Site Config
-  template: src=site.j2 dest=/etc/nginx/sites-available/site owner=root group=root
-
-- name: Enable Site Config
-  file: src=/etc/nginx/sites-available/site dest=/etc/nginx/sites-enabled/site state=link
-
-
-
-
